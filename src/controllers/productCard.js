@@ -45,7 +45,7 @@ const getProductById = async (req, res) => {
 
 const createProduct = async (req, res) => {
   const {
-    title, description, sizes, image, price,
+    title, description, sizes, image, price, category, gender, season
   } = req.body;
 
   try {
@@ -55,6 +55,9 @@ const createProduct = async (req, res) => {
       sizes,
       image,
       price,
+      category,
+      gender,
+      season
     });
 
     return res.status(201).json({
@@ -74,14 +77,14 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const {
-    title, description, sizes, image, price,
+    title, description, sizes, image, price, category, gender, season
   } = req.body;
 
   try {
     const result = await product.findByIdAndUpdate(
       id,
       {
-        title, description, sizes, image, price,
+        title, description, sizes, image, price, category, gender, season
       },
       { new: true },
     );
