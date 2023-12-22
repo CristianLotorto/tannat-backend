@@ -23,7 +23,7 @@ const productCardSchema = new Schema({
     required: true,
   },
   category: {
-    type: String,
+    type: [String],
     required: true,
   },
   gender: {
