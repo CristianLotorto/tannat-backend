@@ -137,5 +137,5 @@ Request Body
 ## Authors
 
 - [@Cristian Lotorto](https://github.com/CristianLotorto)
-- [@Yhanahi Rosenthal](https://www.github.com/octokatherine)
+- [@Yhanahi Rosenthal](https://github.com/YhanahiRosenthal)
 
