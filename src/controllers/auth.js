@@ -1,14 +1,25 @@
-import SuperAdmin from '../models/SuperAdmin';
+const superAdmin = require('../models/SuperAdmin');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const getAuth = async (req, res) => {
+    const {
+        username,
+        password
+    } = req.body;
   try {
-    const superAdmin = await SuperAdmin.findOne({ firebaseUid: req.headers.firebaseUid });
-    if (superAdmin) {
-      return res.status(201).json({
-        message: 'Super Admin found',
-        data: superAdmin,
-        error: false,
-      });
+    const admin = await superAdmin.findOne({ username });
+
+    if (admin) {
+        const validate = await bcrypt.compare(password, admin.password)
+        if (validate){
+            const accessToken = jwt.sign({username,password}, process.env.TOKEN_SECRET, {expiresIn: '1800s'})
+            return res.status(201).json({
+                message: 'User found',
+                data: accessToken,
+                error: false,
+              });
+        }
     }
 
     return res.status(404).json({
@@ -25,4 +36,4 @@ const getAuth = async (req, res) => {
   }
 };
 
-export default { getAuth };
+module.exports = { getAuth };

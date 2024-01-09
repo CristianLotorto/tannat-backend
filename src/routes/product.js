@@ -2,15 +2,15 @@ const express = require('express');
 
 const controller = require('../controllers/productCard');
 
-const validationId = require('../validations/validateId');
+const authToken = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
 router
-  .delete('/:id', validationId.validateId, controller.deleteProduct)
+  .delete('/:id', authToken.verifyToken, controller.deleteProduct)
   .get('/', controller.getAllProducts)
-  .get('/:id', validationId.validateId, controller.getProductById)
-  .post('/', controller.createProduct)
-  .put('/:id', validationId.validateId, controller.updateProduct);
+  .get('/:id', controller.getProductById)
+  .post('/', authToken.verifyToken, controller.createProduct)
+  .put('/:id', authToken.verifyToken, controller.updateProduct);
 
 module.exports = router;
