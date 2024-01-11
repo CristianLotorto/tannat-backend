@@ -15,7 +15,7 @@ const getAuth = async (req, res) => {
 
         if(admin.username === username) {
           if (validate){
-              const accessToken = jwt.sign({username,password}, process.env.TOKEN_SECRET, {expiresIn: '1800s'})
+              const accessToken = jwt.sign({username,password}, process.env.TOKEN_SECRET, {expiresIn: '7200s'})
               return res.status(200).json({
                   message: 'User found',
                   data: {
